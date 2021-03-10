@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/yunStyle.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="font1/iconfont.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <script src="js/yun.js" defer></script>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <title>网盘</title>
+</head>
+<body>
+    <div class="nav">
+        <div class="nav-logo">
+            <a href="https://www.fzu.edu.cn/html/index.shtml">
+                <img src="image/logo.png">
+            </a>
+        </div>
+        <div class="nav-link">
+           <a href="#">网盘</a>
+           <a href="#">分享</a>
+           <a href="#">分享</a>
+           <a href="#">分享</a>
+           <a href="#">分享</a>
+        </div>
+        <div class="nav-app">
+            <div class="nav-app-user">
+                <span th:text="${email}">4016481921</span>
+                <a href="#" class="iconfont icon-yonghu"></a>
+                <a href="#" class="iconfont icon-tongzhi"></a>
+                <a href="/logout"><img src="image/logout.jpg" alt="注销"></a>
+            </div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="left">
+            <ul>
+                <li class="iconfont icon-wenjian">&nbsp;&nbsp;全部文件</li>
+                <li>图片</li> 
+                <li>文档</li> 
+                <li>视频</li> 
+                <li>音乐</li> 
+                <li>其他</li> 
+                <li class="iconfont icon-fenxiang">&nbsp;&nbsp;我的分享</li> 
+                <li class="iconfont icon-huishouzhan">&nbsp;&nbsp;回收站&nbsp;</li> 
+            </ul>
+            <div id="capacity" th:capacity="${capacity}">
+                <span  th:text="${capacity}+'M/100M'">20M/100M</span>
+            </div>
+        </div>
+        <div class="right">
+            <div class="right-title">
+                <form th:if="${!role}" action="/putPic" method="POST" id="form" class="form" enctype="multipart/form-data">
+                    <input id="package" name="packageId" type="hidden" th:value="${packageId}">
+                    <input @change="submitFile" name="fileName" accept="image/gif, image/jpeg, image/png, image/jpg" type="file" id="submit" class="submit" style="display: none"  >
+                    <label @click="upload" id="putPic" type="button" class="btn1 iconfont icon-shangchuan5" >&nbsp;上传</label>
+                    <button id="submitPic" type="submit" style="display: none"></button>
+                    <label @click="createPackage" class="btn-au iconfont icon-shangchuan5">&nbsp;新建文件夹</label>
+                </form>
+                <form th:if="${role}" action="/searchUser" method="POST" id="form1" class="form" enctype="multipart/form-data">
+                    <input id="package" name="packageId" type="hidden" th:value="${packageId}">
+                    <input v-model="value" placeholder="输入管理用户的邮箱" name="email" type="text">
+                    <button @click="searchUser(value)" id="searchUser" type="button">提交</button>
+                </form>
+            </div>
+
+            <div class="right-content">
+                <div class="tips">
+                        <span class="begin-tip">名称</span>
+                        <span>修改时间</span>
+                        <span>操作</span>
+                        <span th:if="${role}">状态</span>
+                </div>
+                <div class="file">
+                    <div v-if="show" id="header" class="list">
+                        <span @click.once="turnBefore()" class="iconfont icon-wenjianjia">&nbsp;&nbsp;返回上级目录</span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="file" id="packagelist">
+                    <div class="list"  v-for="(item,index) in file" v-if="index>=(activePage-1)*15&&index<activePage*15">
+                        <span @click="turn(item.packageId)" :tt="item.packageId" class="iconfont icon-wenjianjia">&nbsp;&nbsp;{{item.filename}}</span>
+                        <span>&nbsp;</span>
+                        <span>
+                            <button @click="deletePackage(item.packageId,index)" class="btn">删除</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="file" id="filelist">
+                    <!--<div class="list"  v-for="(item,index) in file" v-if="index+indexRoot>=(activePage-1)*15&&index+indexRoot<activePage*15">
+                        <span @click="turn(item)" class="iconfont icon-wenjian">&nbsp;&nbsp;{{item.filename}}</span>
+                        <span>{{item.filedate}}</span>
+                        <span>
+                            <button @click="examine(item.place)" th:if="${role}">过审</button>
+                            <button th:if="${!role}" class="btn"><a :href="item.place" :download="item.place">下载</a></button>
+                            <button @click="deletePicture(item.place,index)" class="btn">删除</button>
+                        </span>
+                    </div>-->
+                    <div th:if="${!role}" class="list"  v-for="(item,index) in file" v-if="index+indexRoot>=(activePage-1)*15&&index+indexRoot<activePage*15">
+                        <span @click="turn(item)" class="iconfont icon-wenjian">&nbsp;&nbsp;{{item.filename}}</span>
+                        <span>{{item.filedate}}</span>
+                        <span>
+                            <button class="btn"><a :href="item.place" :download="item.place">下载</a></button>
+                            <button @click="deletePicture(item.place,index)" class="btn">删除</button>
+                        </span>
+                    </div>
+                    <div th:if="${role}" class="list"  v-for="(item,index) in file" v-if="index+indexRoot>=(activePage-1)*15&&index+indexRoot<activePage*15">
+                        <span @click="turn(item)" class="iconfont icon-wenjian">&nbsp;&nbsp;{{item.filename}}</span>
+                        <span>{{item.filedate}}</span>
+                        <span>
+                            <button v-if="!(item.examine=='已过审')" @click="examine(item.place);item.examine='已过审';" th:if="#{role}">过审</button>
+                            <button  @click="deletePicture(item.place,index)" class="btn">删除</button>
+                        </span>
+                        <span>{{item.examine}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <img id="pic" v-if="isShow" :src="place" @click="isShow = !isShow">
+    <div id="page">
+        <span @click="turnLast" v-if="previousShow">上一页</span>
+        <span @click="turnTo(activePage-2)" v-if="activePage - 2 > 0">{{activePage-2}}</span>
+        <span @click="turnTo(activePage-1)" v-if="activePage - 1 > 0">{{activePage-1}}</span>
+        <span class="active">{{activePage}}</span>
+        <span @click="turnTo(activePage+1)" v-if="activePage<pageNumber">{{activePage+1}}</span>
+        <span @click="turnTo(activePage+2)" v-if="activePage + 1<pageNumber">{{activePage+2}}</span>
+        <span @click="turnBefore" v-show="lastShow">下一页</span>
+    </div>
+</body>
+</html>

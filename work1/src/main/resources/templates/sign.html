@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/ecmascript" src="js/SHA-1.js"></script>
+    <script type="text/javascript" src="js/sign.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+<div id="content">
+    <div class="head">
+        <span>LOG IN</span>
+        <span>SIGN UP</span>
+    </div>
+    <div id="botton1" class="label"><!--表单转换控件-->
+        <div class="control">
+            <div class="sphere iconfont">&#xe6c4;</div>
+        </div>
+    </div>
+    <div  class="benchmark"><!--表单盒子翻转基准盒子-->
+        <div class="box">
+            <div id="login-sheet" class="sheet face"><!--注册页面-->
+                <div class="text">
+                    <p>LOG IN</p>
+                </div>
+                <form id="login-submit" autocomplete="off">
+                    <div class="content">
+                        <transition name="bounce">
+                            <div v-show="emailShow" class="tips email_place"><!---提示框-->
+                                <div>{{emailText}}</div>
+                            </div>
+                        </transition>
+                        <div class="namebox iconfont">
+                            <div>&#xe663;</div>
+                            <input @input="testEmail()" v-model="email" type="text" @blur="emailShow = false" @focus="emailShow = true" placeholder="Your Email" class="reg_email scan" >
+                        </div>
+                        <transition name="bounce">
+                            <!---提示框
+                            <div v-show="passwordShow" class="tips password_place iconfont">
+                                <div>&#xe725;</div>
+                                <div>密码长度5-20</div>
+                                <br>
+                                <div>&#xe725;</div>
+                                <div>字母、数字、标点符号</div>
+                            </div>
+                            -->
+                            <div v-show="passwordShow" class="tips password_place iconfont">
+                                <div :style="{color:color1}" v-if="inner1">&#xe725;</div>
+                                <div :style="{color:color1}" v-if="!inner1">&#xe731;</div>
+                                <div :style="{color:color1}">密码长度5-20</div>
+                                <br>
+                                <div :style="{color:color2}" v-if="inner2">&#xe725;</div>
+                                <div :style="{color:color2}" v-if="!inner2">&#xe731;</div>
+                                <div :style="{color:color2}">字母、数字、标点符号</div>
+                            </div>
+                        </transition>
+                        <div class="passwordbox iconfont" id="login">
+                            <div>&#xe672;</div>
+                            <div @click="seeShow=!seeShow" v-if="!seeShow">&#xe634;</div>
+                            <div @click="seeShow=!seeShow" v-if="seeShow">&#xe633;</div>
+                            <input :type="isSee" @input="testPassword()" @blur="passwordShow = false" @focus="passwordShow = true" v-model="password" placeholder="Your PassWord" class="reg_password scan">
+                        </div>
+                        <input @click="login()" type="button" value="S U B M I T" class="login_btn">
+                    </div>
+                </form>
+            </div>
+            <div id="sign-sheet" class="sheet back"><!--登录页面-->
+                <div class="text">
+                    <p>SIGN UP</p>
+                </div>
+                <form id="sign-submit" action="signUser" autocomplete="off" method="POST">
+                    <div class="content">
+                        <div class="namebox iconfont">
+                            <div>&#xe667;</div>
+                            <input type="text"  placeholder="Your User Name"  class="sign_name scan" v-model="email" name="email">
+                        </div>
+                        <div class="passwordbox iconfont" id="signin">
+                            <div>&#xe672;</div>
+                            <div @click="seeShow=!seeShow" v-if="!seeShow">&#xe634;</div>
+                            <div @click="seeShow=!seeShow" v-if="seeShow">&#xe633;</div>
+                            <input :type="isSee" placeholder="Your PassWord " class="sign_password scan" v-model="password" name="password">
+                        </div>
+                        <input @click="signUser()" type="button" value="S U B M I T"  class="signin_btn">
+                        <a href="#">Forgot your password?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

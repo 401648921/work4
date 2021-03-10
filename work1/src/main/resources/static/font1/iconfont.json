@@ -1,0 +1,58 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1063100",
+      "name": "文件",
+      "font_class": "wenjian",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "8192584",
+      "name": "文件夹",
+      "font_class": "wenjianjia",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "11761851",
+      "name": "回收站",
+      "font_class": "huishouzhan",
+      "unicode": "e64d",
+      "unicode_decimal": 58957
+    },
+    {
+      "icon_id": "11979434",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
+      "icon_id": "15706280",
+      "name": "通知",
+      "font_class": "tongzhi",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "19148285",
+      "name": "分 享 ",
+      "font_class": "fenxiang",
+      "unicode": "e6e6",
+      "unicode_decimal": 59110
+    },
+    {
+      "icon_id": "19719374",
+      "name": "传输_上传",
+      "font_class": "shangchuan5",
+      "unicode": "e50a",
+      "unicode_decimal": 58634
+    }
+  ]
+}

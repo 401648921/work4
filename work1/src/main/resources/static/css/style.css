@@ -1,0 +1,349 @@
+@font-face {
+    font-family: 'iconfont';
+    src: url('font/iconfont.eot');
+    src: url('font/iconfont.eot?#iefix') format('embedded-opentype'),
+        url('font/iconfont.woff2') format('woff2'),
+        url('font/iconfont.woff') format('woff'),
+        url('font/iconfont.ttf') format('truetype'),
+        url('font/iconfont.svg#iconfont') format('svg');
+  }
+  .iconfont {
+    font-family: "iconfont" !important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+*{
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+}
+ul{
+    list-style: none;
+}
+body{
+    background-color: rgb(31,32,41);
+}
+.head{
+    position: relative;
+    width: 500px;
+    text-align: center;
+    margin:0 auto;
+    padding-top: 200px;
+}
+.head>span{
+    font-family: Arial, Helvetica, sans-serif;
+    margin:0 20px;
+    font-weight:700;
+    color: #c4c3ca;
+}
+.label{
+    width: 500px;
+    margin: 20px auto 40px auto;
+}
+
+.control{
+    position: relative;
+    background: #ffeba7;
+    border-radius: 9px;
+    width: 60px;
+    height: 18px;
+    margin: 0 auto;
+}
+.sphere{
+    position: absolute;
+    background: #102770;
+    width: 36px;
+    height: 36px;
+    border-radius: 36px;
+    top:-9px;
+    left: -24px;
+    text-align: center;
+    line-height: 36px;
+    transform: rotate(270deg);
+    cursor:pointer;
+    color:#ffeba7;
+    font-size: 26px;
+}
+.benchmark{
+    height: 400px;
+    width: 440px;
+    margin:0 auto;
+}
+.box{
+    position: relative;
+    transform-style: preserve-3d;
+    transition:all 1s;
+}
+
+
+.sheet{
+    position: absolute;
+    height: 440px;
+    width: 400px;
+    background-color: #2a2b38;
+    background-image: url("image/pat.svg");
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: 300%;
+    color: #c4c3ca;
+    border-radius: 10px;
+
+}
+.back{
+    transform:rotateY(180deg);
+    display: none;
+
+}
+.sheet>.text{
+    height: 130px;
+    width: 100%;
+    text-align: center;
+    line-height: 130px;
+    font-weight: 700;
+    font-size: 26px;
+}
+.content{
+    width: 100%;
+    height: 300px;
+}
+.content>.namebox{
+    position: relative;
+    width: 270px;
+    height: 22px;
+    padding: 13px 20px 13px 55px;
+    background-color: rgb(31,32,41);
+    margin:0 auto;
+    border-radius: 5px;
+}
+.content>.passwordbox{
+    position: relative;
+    width: 270px;
+    height: 22px;
+    padding: 13px 20px 13px 55px;
+    background-color: rgb(31,32,41);
+    margin:10px auto 0 auto;
+    border-radius: 5px;
+}
+
+.content>input{
+    display: block;
+    border-radius: 4px;
+    width: 120px;
+    height: 50px;
+    border-color:transparent;
+    background-color: #ffeba7;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 900;
+    font-size: 12px;
+    outline: none;
+    cursor:pointer;
+    color: rgb(16,39,112);
+    box-shadow: 0 8px 24px 0 rgba(255,235,167,0.2);
+    margin:30px auto 0 auto;
+    transition: all 0.5s;
+    
+}
+.content>a{
+    display: block;
+    width: 186px;
+    font-weight: 700;
+    margin:20px auto 0 auto;
+    color: #c4c3ca;
+    transition:all 0.5s;
+}
+.content>a:hover{
+    color: #ffeba7;
+}
+.content>input:hover{
+    background-color:rgb(16,39,112);
+    color: #ffeba7;
+    box-shadow: 0 8px 24px 0 rgba(16,39,112,0.2);
+    
+}
+
+.content>.passwordbox>div{
+    position: absolute;
+    font-size: 26px;
+    left: 17px;
+    top:7px;
+    color:#ffeba7;
+}
+.content>.passwordbox>div:nth-child(2){
+       left: unset;
+       right: 10px;
+       cursor: pointer;
+}
+.content>.passwordbox>div:nth-child(3){
+    left: unset;
+    right: 10px;
+    cursor: pointer;
+}
+.content>.namebox>div{
+    position: absolute;
+    font-size: 26px;
+    left: 17px;
+    top:7px;
+    color:#ffeba7;
+}
+.tips{/*提示框*/
+    position: absolute;
+    right: -300px;
+    width: 200px;
+    height: 120px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px 10px rgba(255, 235, 167, 0.2);
+}
+.email_place{
+    top: 110px;
+    color: rgba(118,118,118);
+    right: -190px;
+    transform: scale(1);
+    transform-origin: 10px 10px;
+    transition: all 0.5s;
+}
+.password_place{
+    top: 170px;
+    color: rgba(118,118,118);
+    right: -190px;
+    transform: scale(1);
+    transform-origin: 10px 10px;
+    transition: all 0.5s;
+}
+.tips::before{/*大三角形*/
+    content: '';
+    position: absolute;
+    top:30px ;
+    left: -15px;
+    border-top: 10px solid transparent;
+    border-right: 15px solid white;
+    border-bottom: 10px solid transparent;
+}
+.email_place>div{
+    width: 100%;
+    height: 50px;
+    margin-top: 40px;
+    margin-left: 10px;
+}
+.password_place>div{
+    display: inline-block;
+    margin-top: 15px;
+}
+.password_place>div:nth-child(1){
+    color: red;
+}
+.password_place>div:nth-child(4){
+    color: red;
+}
+.content>.namebox>input::-webkit-input-placeholder{
+    color: #c4c3ca;
+    transition: all 0.5s ;
+    
+}
+.content>.namebox>input:focus::-webkit-input-placeholder{
+    opacity:0;
+}
+.content>.namebox>input:-ms-input-placeholder{
+    color: #c4c3ca;
+    transition: all 0.5s ;
+}
+.content>.namebox>input:focus:-ms-input-placeholder{
+    opacity:0;
+}
+.content>.namebox>input::-moz-placeholder{
+    color: #c4c3ca;
+    transition: all 0.5s ;
+}
+.content>.namebox>input:focus:-moz-placeholder{
+    opacity:0;
+}
+.content>.namebox>input:-moz-placeholder{
+    color: #c4c3ca;
+    transition: all 0.5s ;
+}
+.content>.namebox>input:focus:-moz-placeholder{
+    opacity:0;
+}
+
+
+.content>.passwordbox>input::-webkit-input-placeholder{
+    color: #c4c3ca;
+    transition: all 0.5s ;
+    
+}
+.content>.passwordbox>input:focus::-webkit-input-placeholder{
+    opacity:0;
+}
+.content>.passwordbox>input:-ms-input-placeholder{
+    color: #c4c3ca;
+    transition: all 0.5s ;
+}
+.content>.passwordbox>input:focus:-ms-input-placeholder{
+    opacity:0;
+}
+.content>.passwordbox>input::-moz-placeholder{
+    color: #c4c3ca;
+    transition: all 0.5s ;
+}
+.content>.passwordbox>input:focus:-moz-placeholder{
+    opacity:0;
+}
+.content>.passwordbox>input:-moz-placeholder{
+    color: #c4c3ca;
+    transition: all 0.5s ;
+}
+.content>.passwordbox>input:focus:-moz-placeholder{
+    opacity:0;
+}
+.scan{
+    font-size: 16px;
+    width: 220px;
+    border: none;
+    background-color: rgb(31,32,41);
+    color: #c4c3ca;
+    font-weight: 600;
+    outline: none;
+}
+.bounce-enter-active {
+    animation: bounce-in .5s;
+}
+.bounce-leave-active {
+    animation: bounce-in .5s reverse;
+}
+
+.bounce-enter-to, .bounce-leave{
+    transform: scale(1);
+}
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes left{
+    0%{
+        transform: rotate(270deg);
+        left: -24px;
+
+    }
+    100%{
+        transform: rotate(-360deg);
+        left: 45px;
+    }
+}
+@keyframes right{
+    0%{
+        transform: rotate(-360deg);
+        left: 45px;
+
+    }
+    100%{
+        transform: rotate(270deg);
+        left: -24px;
+    }
+}
